@@ -21,4 +21,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "Movie Junkie"
 include(":app")
- 
+include(":core:common")
+include(":feature:movie")
+include(":build-logic:convention")
+include(":core:data")
+include(":core:domain")
+include(":core:ui")
+include(":core:network")
