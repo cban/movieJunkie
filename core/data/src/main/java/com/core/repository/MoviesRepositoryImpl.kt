@@ -6,8 +6,9 @@ import com.core.domain.repository.MoviesRepository
 import com.core.mapper.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class MoviesRepositoryImpl(
+class MoviesRepositoryImpl @Inject constructor(
     private val moviesDataSource: MoviesDataSource
 ) : MoviesRepository {
     override fun getPopularMovies(page: Int): Flow<List<Movie>> = flow {

@@ -40,6 +40,7 @@ class MoviesViewModel @Inject constructor(
 
     fun openDetail(movieId: Int) {
         viewModelScope.launch {
+
         }
     }
 
