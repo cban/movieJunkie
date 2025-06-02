@@ -40,6 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.core.domain.model.Movie
 import com.core.ui.MovieAppBar
+import com.core.ui.theme.MovieJunkieTheme
 
 @Composable
 internal fun MoviesRoute(
@@ -236,38 +237,40 @@ fun MovieItem(
 @Preview(showBackground = true)
 @Composable
 fun MoviesScreenPreview() {
-    val movies = listOf(
-        Movie(
-            id = 1,
-            title = "Spider-Man Into the Spider-verse ",
-            overview = "Description 1",
-            releaseDate = "2023-01-01",
-            posterPath = "https://example.com/poster1.jpg",
-            backdropPath = "https://example.com/backdrop1.jpg"
-        ),
-        Movie(
-            id = 2,
-            title = "Movie 2",
-            overview = "Description 1",
-            releaseDate = "2023-01-01",
-            posterPath = "https://example.com/poster1.jpg",
-            backdropPath = "https://example.com/backdrop1.jpg"
-        ),
-        Movie(
-            id = 3,
-            title = "Movie 3",
-            overview = "Description 1",
-            releaseDate = "2023-01-01",
-            posterPath = "https://example.com/poster1.jpg",
-            backdropPath = "https://example.com/backdrop1.jpg"
-        ),
-    )
+    MovieJunkieTheme {
+        val movies = listOf(
+            Movie(
+                id = 1,
+                title = "Spider-Man Into the Spider-verse ",
+                overview = "Description 1",
+                releaseDate = "2023-01-01",
+                posterPath = "https://example.com/poster1.jpg",
+                backdropPath = "https://example.com/backdrop1.jpg"
+            ),
+            Movie(
+                id = 2,
+                title = "Movie 2",
+                overview = "Description 1",
+                releaseDate = "2023-01-01",
+                posterPath = "https://example.com/poster1.jpg",
+                backdropPath = "https://example.com/backdrop1.jpg"
+            ),
+            Movie(
+                id = 3,
+                title = "Movie 3",
+                overview = "Description 1",
+                releaseDate = "2023-01-01",
+                posterPath = "https://example.com/poster1.jpg",
+                backdropPath = "https://example.com/backdrop1.jpg"
+            ),
+        )
 
-    MoviesContent(
-        state = MovieUiState(movies = movies),
-        onShowDetail = {},
-        onBack = {},
-        onEvent = {}
-    )
+        MoviesContent(
+            state = MovieUiState(movies = movies),
+            onShowDetail = {},
+            onBack = {},
+            onEvent = {}
+        )
+    }
 }
 
