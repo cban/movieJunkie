@@ -17,6 +17,18 @@ fun MoviesDto.toDomain(): List<Movie> {
         )
     }
 }
+fun com.core.network.model.Movie.toDomain(): Movie {
+    return Movie(
+        id = id,
+        title = title,
+        overview = overview,
+        posterPath = buildImageUrl(posterPath),
+        releaseDate = releaseDate,
+        backdropPath = buildImageUrl(backdropPath)
+    )
+}
+
+
 
 fun buildImageUrl(path: String?, size: String = "w500"): String? {
     return path?.let { "${BuildConfig.IMAGE_BASE_URL}$size$it" }

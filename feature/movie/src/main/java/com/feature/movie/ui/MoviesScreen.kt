@@ -142,44 +142,60 @@ fun MoviesContent(
 
 @Composable
 fun MoviesList(
-    movies: List<Movie>,
+    movies: Map<String, List<Movie>>,
     onShowDetail: (Int) -> Unit,
     onEvent: (UiEvents) -> Unit
 ) {
-
-    LazyColumn {
-        item {
+    if (movies.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
             Text(
-                text = "Hello Movies",
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
-                ),
-                modifier = Modifier.padding(16.dp)
+                text = "No movies available",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
-        item {
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 12.dp)
-            ) {
-                items(movies) { movie ->
-                    PaddingValues(horizontal = 4.dp)
-                    MovieItem(
-                        movie = movie,
-                        onClick = {
-                            onShowDetail(movie.id)
-                            onEvent(UiEvents.ShowDetail(movie.id))
-                        },
-                    )
+        return
+    }
+    LazyColumn {
+        movies.forEach { (genre, movieList) ->
+            item {
+                Text(
+                    text = genre,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                    ),
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            item {
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 12.dp)
+                ) {
+                    items(movieList) { movie ->
+                        PaddingValues(horizontal = 4.dp)
+                        MovieItem(
+                            movie = movie,
+                            onClick = {
+                                onShowDetail(movie.id)
+                                onEvent(UiEvents.ShowDetail(movie.id))
+                            },
+                        )
+                    }
                 }
             }
-        }
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
-
 }
+
 
 @Composable
 fun MovieItem(
@@ -265,8 +281,14 @@ fun MoviesScreenPreview() {
             ),
         )
 
+        val moviesByGenre = mapOf(
+            "Action" to movies,
+            "Adventure" to movies,
+            "Comedy" to movies,
+        )
+
         MoviesContent(
-            state = MovieUiState(movies = movies),
+            state = MovieUiState(movies = moviesByGenre),
             onShowDetail = {},
             onBack = {},
             onEvent = {}

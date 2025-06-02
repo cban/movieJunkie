@@ -19,7 +19,7 @@ class MoviesViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val moviesState: StateFlow<MovieUiState> = getPopularMoviesUseCase()
+    val moviesState: StateFlow<MovieUiState> = getPopularMoviesUseCase(1)
         .map { movies -> MovieUiState(movies = movies, isLoading = false, errorMessage = null) }
         .onStart { emit(MovieUiState(isLoading = true)) }
         .catch { exception ->

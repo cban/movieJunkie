@@ -4,7 +4,7 @@ import com.core.domain.model.Movie
 
 data class MovieUiState(
     val isLoading: Boolean = false,
-    val movies: List<Movie> = emptyList(),
+    val movies: Map<String , List<Movie>> = emptyMap(),
     val errorMessage: String? = null
 )
 
