@@ -1,4 +1,7 @@
 [versions]
+minSdk = "24"
+targetSdk = "35"
+compileSdk = "35"
 agp = "8.10.0"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
@@ -22,6 +25,8 @@ secrets = "2.0.1"
 foundationAndroid = "1.8.2"
 uiTooling = "1.8.2"
 kotlinxSerializationJson = "1.8.0"
+androidGradlePlugin = "8.3.2"
+androidTools = "31.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +54,13 @@ dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-andro
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
+# build-logic Dependencies
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
+
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", name = "moshi", version.ref = "moshiVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
 retrofit-moshi-convertor = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofitVersion" }
@@ -62,7 +74,6 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 retrofit = ["retrofit", "retrofit-moshi-convertor", "retrofit-scalars"]
 
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -72,5 +83,14 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 dev-tools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+
+# build-logic Dependencies
+movieJunkie-android-application = { id = "movieJunkie.android.application",  version = "unspecified" }
+movieJunkie-android-library = { id = "movieJunkie.android.library", version = "unspecified" }
+movieJunkie-android-hilt = { id = "movieJunkie.android.hilt" }
+movieJunkie-android-compose = { id = "movieJunkie.android.compose", version = "unspecified" }
+
+
+
 
 

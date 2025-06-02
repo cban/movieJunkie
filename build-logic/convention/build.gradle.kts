@@ -1,43 +1,47 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    `kotlin-dsl`
 }
 
-android {
-    namespace = "com.build.convention"
-    compileSdk = 35
+group = " com.build.convention."
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
 dependencies {
+    compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.android.tools.common)
+    compileOnly(libs.ksp.gradlePlugin)
+}
+    gradlePlugin {
+        plugins {
+            register("androidApplication") {
+                id = "movieJunkie.android.application"
+                implementationClass = "AndroidApplicationConventionPlugin"
+            }
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+            register("androidLibrary") {
+                id = "movieJunkie.android.library"
+                implementationClass = "AndroidLibraryConventionPlugin"
+            }
+            register("androidHilt") {
+                id = "movieJunkie.android.hilt"
+                implementationClass = "AndroidHiltConventionPlugin"
+            }
+        register("androidLibraryCompose") {
+            id = "movieJunkie.android.compose"
+            implementationClass = "AndroidComposeConventionPlugin"
+        }
+    }
+
 }

@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic/convention")
     repositories {
         google {
             content {
@@ -23,9 +24,10 @@ rootProject.name = "Movie Junkie"
 include(":app")
 include(":core:common")
 include(":feature:movie")
-include(":build-logic:convention")
 include(":core:data")
 include(":core:domain")
 include(":core:ui")
+include(":build-logic:convention")
 include(":core:network")
 include(":feature:moviedetail")
+include(":build-logic:conventions")
