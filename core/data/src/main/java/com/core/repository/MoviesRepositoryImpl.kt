@@ -2,6 +2,7 @@ package com.core.repository
 
 import com.core.datasource.MoviesDataSource
 import com.core.domain.model.Movie
+import com.core.domain.model.MovieDetail
 import com.core.domain.repository.MoviesRepository
 import com.core.mapper.MovieGroupingMapper
 import com.core.mapper.toDomain
@@ -23,11 +24,26 @@ class MoviesRepositoryImpl @Inject constructor(
     ): Flow<Map<String, List<Movie>>> {
 
         return flow {
-            val genresDto = moviesDataSource.getGenres()
-            val moviesDto = moviesDataSource.getMovies(page)
+            try {
+                val genresResponse = moviesDataSource.getGenres()
+                val moviesResponse = moviesDataSource.getMovies(page)
 
-            val groupedMovies = MovieGroupingMapper.groupByGenre(moviesDto, genresDto)
-            emit(groupedMovies)
+                val groupedMovies = MovieGroupingMapper.groupByGenre(moviesResponse, genresResponse)
+                emit(groupedMovies)
+            } catch (e: Exception) {
+                //
+            }
+        }
+    }
+
+    override fun getMovieDetails(movieId: Int): Flow<MovieDetail> {
+        return flow {
+            try {
+                val response = moviesDataSource.getMovieDetails(movieId)
+                emit(response.toDomain())
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 }
