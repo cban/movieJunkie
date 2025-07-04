@@ -1,20 +1,20 @@
 package com.core.repository
 
-import com.core.datasource.MoviesDataSource
 import com.core.domain.model.Movie
 import com.core.domain.model.MovieDetail
 import com.core.domain.repository.MoviesRepository
 import com.core.mapper.MovieGroupingMapper
 import com.core.mapper.toDomain
+import com.core.network.MoviesNetworkDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
-    private val moviesDataSource: MoviesDataSource
+    private val moviesNetworkDataSource: MoviesNetworkDataSource
 ) : MoviesRepository {
     override fun getPopularMovies(page: Int): Flow<List<Movie>> = flow {
-        val moviesDto = moviesDataSource.getMovies(page)
+        val moviesDto = moviesNetworkDataSource.getPopularMovies(page)
         emit(moviesDto.toDomain())
     }
 
@@ -25,8 +25,8 @@ class MoviesRepositoryImpl @Inject constructor(
 
         return flow {
             try {
-                val genresResponse = moviesDataSource.getGenres()
-                val moviesResponse = moviesDataSource.getMovies(page)
+                val genresResponse = moviesNetworkDataSource.getMovieGenres()
+                val moviesResponse = moviesNetworkDataSource.getPopularMovies(page)
 
                 val groupedMovies = MovieGroupingMapper.groupByGenre(moviesResponse, genresResponse)
                 emit(groupedMovies)
@@ -39,7 +39,7 @@ class MoviesRepositoryImpl @Inject constructor(
     override fun getMovieDetails(movieId: Int): Flow<MovieDetail> {
         return flow {
             try {
-                val response = moviesDataSource.getMovieDetails(movieId)
+                val response = moviesNetworkDataSource.getMovieDetails(movieId)
                 emit(response.toDomain())
             } catch (e: Exception) {
                 throw e

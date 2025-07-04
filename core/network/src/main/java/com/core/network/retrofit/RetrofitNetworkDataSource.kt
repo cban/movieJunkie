@@ -1,19 +1,18 @@
-package com.core.datasource.remote
+package com.core.network.retrofit
 
-import com.core.datasource.MoviesDataSource
+import com.core.network.MoviesNetworkDataSource
 import com.core.network.model.GenresDto
 import com.core.network.model.MovieDetailDto
 import com.core.network.model.MoviesDto
-import com.core.network.service.MoviesApiService
 import javax.inject.Inject
 
-class MoviesRemoteDataSource @Inject constructor(private val apiService: MoviesApiService) :
-    MoviesDataSource {
-    override suspend fun getMovies(page: Int): MoviesDto {
+internal class RetrofitNetworkDataSource @Inject constructor(private val apiService: MoviesApiService) :
+    MoviesNetworkDataSource {
+    override suspend fun getPopularMovies(page: Int): MoviesDto {
         return apiService.getPopularMovies(page)
     }
 
-    override suspend fun getGenres(): GenresDto {
+    override suspend fun getMovieGenres(): GenresDto {
         return apiService.getMovieGenres()
     }
 

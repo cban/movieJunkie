@@ -1,0 +1,18 @@
+GET https://examples.http-client.intellij.net/ip
+Accept: application/json
+
+### GET request for popular movies
+
+GET {{baseUrl}}/movie/popular?page=1
+Accept: application/json
+Authorization: Bearer {{apiKey}}
+
+### GET request for a specific movie by ID
+GET {{baseUrl}}/movie/{{movieId}}
+Accept: application/json
+Authorization: Bearer {{apiKey}}
+
+### GET request for a list of genres
+GET {{baseUrl}}/genre/movie/list
+Accept: application/json
+Authorization: Bearer {{apiKey}}

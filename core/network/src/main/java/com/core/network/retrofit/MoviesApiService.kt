@@ -1,4 +1,4 @@
-package com.core.network.service
+package com.core.network.retrofit
 
 import com.core.network.model.GenresDto
 import com.core.network.model.MovieDetailDto
